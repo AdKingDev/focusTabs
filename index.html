@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Focus Tabs</title>
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/media-queries.css">
+
+    <link rel="shortcut icon" href="./assets/images/favicon.jpg" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <h1>Focus Tabs</h1>
+        <p>Organize seus links sem poluir seu navegador</p>
+    </header>
+
+    <main>
+        <!-- Área de adicionar links -->
+        <section class="area-link">
+            <h2>Adicionar Link</h2>
+        <form id="link-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="link-name">Nome</label>
+                    <input type="text" id="link-name" name="nome" placeholder="Nome da página..." required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="link-url">URL</label>
+                    <input type="url" id="link-url" name="url" placeholder="URL da página..." required>
+                </div>
+
+                <button type="submit" id="save-link">Salvar</button>
+        </form>
+        </section>
+
+        <section class="search-area">
+            <h2>Área de Busca</h2>
+            <input type="text" id="search-input" placeholder="Buscar links...">
+        </section>
+
+        <section class="link-list">
+            <h2>Lista de Links</h2>
+            <div id="links-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido por <a href="#linkedin">@adking.dev</a></p>
+    </footer>
+
+    <script src="./assets/javascript/script.js"></script>
+</body>
+</html>
