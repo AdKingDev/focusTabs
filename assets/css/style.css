@@ -112,7 +112,22 @@ button:hover {
 button:active {
     transform: translateY(2px);
 }
-    
+
+#links-container > div {
+    margin-bottom: 10px;
+}
+
+#links-container > a {
+    font-size: 18px;
+    text-decoration: none;
+    color: var(--color1);
+}
+
+#links-container > a:hover {
+    text-decoration: underline;
+    color: var(--color2);
+}
+
 footer {
     color: var(--text);
     text-align: center;
