@@ -2,48 +2,74 @@ const form = document.getElementById("link-form");
 const inputName = document.getElementById("link-name");
 const inputUrl = document.getElementById("link-url");
 const linksContainer = document.getElementById("links-container");
+const searchInput = document.getElementById("search-input");
 
-// Transforma objeto em texto para armazenar
+
+// Salvar links no navegador
 function saveLinks(links) {
     localStorage.setItem("links", JSON.stringify(links));
 }
 
-// Transforma texto em objeto novamente
+// Carregar links do navegador
 function loadLinks() {
     const storedLinks = localStorage.getItem("links");
-
-    if (storedLinks) {
-        return JSON.parse(storedLinks);
-    }
-
-    return [];
+    return storedLinks ? JSON.parse(storedLinks) : [];
 }
 
-function renderLinks() {
+// Renderizar lista de links
+function renderLinks(linksToRender) {
     linksContainer.innerHTML = "";
-
-    const links = loadLinks();
-
-    links.forEach(function(link) {
+    linksToRender.forEach(function(link) {
         const linkItem = document.createElement("div");
         const linkElement = document.createElement("a");
+        const deleteBtn = document.createElement("button");
+
+        deleteBtn.textContent = "Excluir";
 
         linkElement.textContent = link.name;
+        linkElement.title = link.url;
         linkElement.href = link.url;
         linkElement.target = "_blank";
 
-        linkItem.appendChild(linkElement);
+        deleteBtn.addEventListener("click", function() {
+            const links = loadLinks();
+            const updatedLinks = links.filter(function(l) {
+                return l.url !== link.url;
+            });
 
+            saveLinks(updatedLinks);
+            updateView();
+        });
+
+        linkItem.appendChild(linkElement);
+        linkItem.appendChild(deleteBtn);
         linksContainer.appendChild(linkItem);
     });
 }
 
-form.addEventListener("submit", function(event){
+// Atualiza a tela conforme a busca
+function updateView() {
+    const searchValue = searchInput.value.toLowerCase();
+    const links = loadLinks();
+
+    if (searchValue === "") {
+        renderLinks(links);
+        return;
+    }
+
+    const filteredLinks = links.filter(function(link) {
+        return link.name.toLowerCase().includes(searchValue);
+    });
+
+    renderLinks(filteredLinks);
+}
+
+// Evento de adicionar link
+form.addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const name = inputName.value;
-    const url = inputUrl.value;
-
+    const name = inputName.value.trim();
+    const url = inputUrl.value.trim();
     const links = loadLinks();
 
     links.push({
@@ -52,10 +78,12 @@ form.addEventListener("submit", function(event){
     });
 
     saveLinks(links);
-
-    renderLinks();
-
     form.reset();
+    updateView();
 });
 
-renderLinks();
+// Evento de busca
+searchInput.addEventListener("input", updateView);
+
+// Carrega links ao iniciar
+updateView();
