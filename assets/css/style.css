@@ -95,7 +95,6 @@ input::placeholder {
 button {
     font-size: 20px;
 
-    margin-top: 10px;
     padding: 10px 15px;
     border: none;
     background: var(--color1);
@@ -120,16 +119,25 @@ button:active {
     margin-bottom: 10px;
 }
 
-#links-container > a {
+#links-container > div > a {
     margin-right: 10px;
     font-size: 18px;
     text-decoration: none;
-    color: var(--color1);
+    color: #fff;
 }
 
-#links-container > a:hover {
+#links-container > div > a:hover {
     text-decoration: underline;
     color: var(--color2);
+}
+
+#links-container > div:hover {
+    width: 100%;
+
+    background-color: #0cbaff44;
+    border-radius: 10px;
+
+    transform: translateY(-2px);
 }
 
 footer {
